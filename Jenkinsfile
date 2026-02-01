@@ -63,9 +63,11 @@ pipeline {
         failure {
             echo '❌ Build failed'
         }
-        
+
         success {
             echo '✅ Build succeeded'
         }
+
+    }
 
 }
