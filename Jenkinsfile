@@ -29,8 +29,13 @@ pipeline {
                     ) else (
                         echo target directory not found
                     )
-
                 '''
+            }
+        }
+
+        stage('Resolve Dependencies') {
+            steps {
+                bat 'mvn -B -q dependency:resolve'
             }
         }
 
@@ -49,4 +54,21 @@ pipeline {
             ])
         }
     }
+
+    post {
+        always {
+            archiveArtifacts artifacts: '''
+                target/**/*.html,
+                target/**/*.png,
+                target/**/*.log
+            ''', allowEmptyArchive: true
+        }
+        failure {
+            echo '❌ Build failed'
+        }
+        success {
+            echo '✅ Build succeeded'
+        }
+    }
+
 }
