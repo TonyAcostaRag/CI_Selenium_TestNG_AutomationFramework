@@ -23,6 +23,13 @@ pipeline {
                     if exist allure-report rmdir /s /q allure-report
                     if exist target\\allure-results rmdir /s /q target\\allure-results
                     if exist target\\allure-report rmdir /s /q target\\allure-report
+                    if exist target (
+                        echo Deleting target directory...
+                        rmdir /s /q target
+                    ) else (
+                        echo target directory not found
+                    )
+
                 '''
             }
         }
