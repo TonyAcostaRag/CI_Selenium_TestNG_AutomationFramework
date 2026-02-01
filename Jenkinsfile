@@ -52,23 +52,20 @@ pipeline {
                 includeProperties: false,
                 results: [[path: 'allure-results']]
             ])
-        }
-    }
 
-    post {
-        always {
             archiveArtifacts artifacts: '''
                 target/**/*.html,
                 target/**/*.png,
                 target/**/*.log
             ''', allowEmptyArchive: true
         }
+
         failure {
             echo '❌ Build failed'
         }
+        
         success {
             echo '✅ Build succeeded'
         }
-    }
 
 }
