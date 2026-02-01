@@ -1,11 +1,14 @@
 package framework;
 
+import java.net.URL;
+
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class DriverFactory {
 
@@ -37,6 +40,14 @@ public class DriverFactory {
                     chromeOpts.addArguments("--headless=new");
                     chromeOpts.addArguments("--window-size=1920,1080");
                     driver.set(new ChromeDriver(chromeOpts));
+                    break;
+
+                case "RemoteChrome":
+                    ChromeOptions chromeRmtOpts = new ChromeOptions();
+                    driver.set(new RemoteWebDriver(
+                        new URL(System.getProperty("SELENIUM_GRID_URL")),
+                        chromeRmtOpts
+                    ));
                     break;
 
                 default:
