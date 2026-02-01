@@ -61,11 +61,11 @@ pipeline {
         }
 
         failure {
-            echo '❌ Build failed'
+            echo ' ---> Build failed'
         }
 
         success {
-            echo '✅ Build succeeded'
+            echo ' ---> Build succeeded'
         }
 
     }
