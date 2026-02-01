@@ -45,7 +45,10 @@ public class DriverFactory {
                 case "RemoteChrome":
                     ChromeOptions chromeRmtOpts = new ChromeOptions();
                     driver.set(new RemoteWebDriver(
-                        new URL(System.getProperty("SELENIUM_GRID_URL")),
+                        new URL(System.getProperty(
+                            "SELENIUM_GRID_URL", 
+                            System.getenv("SELENIUM_GRID_URL"))
+                        ),
                         chromeRmtOpts
                     ));
                     break;

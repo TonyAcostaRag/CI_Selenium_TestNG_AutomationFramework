@@ -8,40 +8,10 @@
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
 
-    <test name="Chrome Tests">
+    <test name="Chrome Remote">
 
-        <parameter name="browser" value="Chrome"/>
+        <parameter name="browser" value="${browser}"/>
 
-        <classes>
-            <class name="tests.herokuapp.LoginTests_herokuapp"/>
-            <class name="tests.saucedemo.LoginTests_saucedemo"/>
-        </classes>
-    </test>
-
-    <test name="Firefox Tests">
-
-        <parameter name="browser" value="Firefox"/>
-
-        <classes>
-            <class name="tests.herokuapp.LoginTests_herokuapp"/>
-            <class name="tests.saucedemo.LoginTests_saucedemo"/>
-        </classes>
-    </test>
-
-    <test name="Edge Tests">
-
-        <parameter name="browser" value="Edge"/>
-
-        <classes>
-            <class name="tests.herokuapp.LoginTests_herokuapp"/>
-            <class name="tests.saucedemo.LoginTests_saucedemo"/>
-        </classes>
-    </test>
-
-    <test name="ChromeHeadless Tests">
-
-        <parameter name="browser" value="ChromeHeadless"/>
-        
         <classes>
             <class name="tests.herokuapp.LoginTests_herokuapp"/>
             <class name="tests.saucedemo.LoginTests_saucedemo"/>

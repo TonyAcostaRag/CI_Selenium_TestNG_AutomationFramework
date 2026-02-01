@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: selenium-tests
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: tests
+        image: selenium-tests:latest
+        env:
+        - name: BROWSER
+          value: "RemoteChrome"
+        - name: SELENIUM_GRID_URL
+          value: "http://selenium-hub:4444/wd/hub"
