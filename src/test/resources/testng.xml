@@ -1,26 +1,16 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Automation Suite"
         parallel="tests"
-        thread-count="4">
+        thread-count="3">
 
     <listeners>
         <listener class-name="listeners.ExtentTestNGListener"/>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
 
-    <test name="Chrome Tests">
+    <test name="Firefox Headless Tests">
 
-        <parameter name="browser" value="Chrome"/>
-
-        <classes>
-            <class name="tests.herokuapp.LoginTests_herokuapp"/>
-            <class name="tests.saucedemo.LoginTests_saucedemo"/>
-        </classes>
-    </test>
-
-    <test name="Firefox Tests">
-
-        <parameter name="browser" value="Firefox"/>
+        <parameter name="browser" value="FirefoxHeadless"/>
 
         <classes>
             <class name="tests.herokuapp.LoginTests_herokuapp"/>
@@ -28,9 +18,9 @@
         </classes>
     </test>
 
-    <test name="Edge Tests">
+    <test name="Edge EdgeHeadless Tests">
 
-        <parameter name="browser" value="Edge"/>
+        <parameter name="browser" value="EdgeHeadless"/>
 
         <classes>
             <class name="tests.herokuapp.LoginTests_herokuapp"/>
@@ -38,7 +28,7 @@
         </classes>
     </test>
 
-    <test name="ChromeHeadless Tests">
+    <test name="Chrome Headless Tests">
 
         <parameter name="browser" value="ChromeHeadless"/>
         
