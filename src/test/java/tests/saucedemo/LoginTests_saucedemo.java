@@ -24,7 +24,7 @@ public class LoginTests_saucedemo extends TestBasePage{
         groups = {"regression"}
     )
     public void standard_user_login_test(String username, String password) {
-        TestLog.info("Standard user test started");
+        TestLog.info("Standard user test started for browser: ");
 
         loginSaucedemo.goToSaucedemo();
         TestLog.pass("User is in saucedemo page");
@@ -41,7 +41,7 @@ public class LoginTests_saucedemo extends TestBasePage{
         Assert.assertTrue(loginSaucedemo.products_label_IsPresent());
         TestLog.pass("Products label from home page is present");
 
-        TestLog.info("Login Test successful");
+        TestLog.info("Login Test successful for browser: ");
     }
     
 }

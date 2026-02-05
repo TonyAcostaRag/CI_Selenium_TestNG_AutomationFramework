@@ -82,12 +82,8 @@
 
                     <failIfNoTests>false</failIfNoTests>
 
-                    <systemPropertyVariables>
-                        <browser>${browser}</browser>
-                    </systemPropertyVariables>
-
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/${testngFile}</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

@@ -51,22 +51,34 @@ public class DriverFactory {
                     driver.set(new FirefoxDriver(ffOpts));
                     break;
 
-                case "EdgeHeadless":
-                    EdgeOptions edgeOpts = new EdgeOptions();
-                    edgeOpts.addArguments("-headless");
-                    edgeOpts.addArguments("--window-size=1920,1080");
-                    driver.set(new EdgeDriver(edgeOpts));
-                    break;
-
                 case "RemoteChrome":
                     ChromeOptions chromeRmtOpts = new ChromeOptions();
-                    driver.set(new RemoteWebDriver(
-                        new URL(System.getProperty(
-                            "SELENIUM_GRID_URL", 
-                            System.getenv("SELENIUM_GRID_URL"))
-                        ),
-                        chromeRmtOpts
-                    ));
+                    driver.set(
+                        new RemoteWebDriver(
+                            new URL("http://localhost:4444"), 
+                            chromeRmtOpts
+                        )
+                    );
+                    break;
+
+                case "RemoteFirefox":
+                    FirefoxOptions ffRmtOpts = new FirefoxOptions();
+                    driver.set(
+                        new RemoteWebDriver(
+                            new URL("http://localhost:4444"), 
+                            ffRmtOpts
+                        )
+                    );
+                    break;
+
+                case "RemoteEdge":
+                    EdgeOptions edgeRmtOpts = new EdgeOptions();
+                    driver.set(
+                        new RemoteWebDriver(
+                            new URL("http://localhost:4444"), 
+                            edgeRmtOpts
+                        )
+                    );
                     break;
 
                 default:

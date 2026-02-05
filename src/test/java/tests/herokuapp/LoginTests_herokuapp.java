@@ -22,7 +22,7 @@ public class LoginTests_herokuapp extends TestBasePage {
         groups = {"smoke"}
     )
     public void basicAuth_Test() {
-        TestLog.info("Basic Authentication test started");
+        TestLog.info("Basic Authentication test started for browser: ");
 
         loginPage.goToPage();
         TestLog.pass("Navigated to herokuapp page");
@@ -36,7 +36,7 @@ public class LoginTests_herokuapp extends TestBasePage {
         Assert.assertTrue(loginPage.basicAuth_message_IsPresent());
         TestLog.pass("User can see basic auth message.");
 
-        TestLog.info("Login Test successful");
+        TestLog.info("Login Test successful for browser: ");
     }
 
     @Test(
@@ -44,7 +44,7 @@ public class LoginTests_herokuapp extends TestBasePage {
         groups = {"sanity", "regression"}
     )
     public void digestAuth_Test() {
-        TestLog.info("Digest Authentication test started");
+        TestLog.info("Digest Authentication test started for browser: ");
 
         loginPage.goToPage();
         TestLog.pass("Navigated to herokuapp page");
@@ -58,7 +58,7 @@ public class LoginTests_herokuapp extends TestBasePage {
         Assert.assertTrue(loginPage.digestAuth_message_IsPresent());
         TestLog.pass("User can see digest auth message.");
 
-        TestLog.info("Login Test successful");
+        TestLog.info("Login Test successful for browser: ");
     }
     
 }
