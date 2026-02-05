@@ -1,27 +1,50 @@
 FROM maven:3.9.12-eclipse-temurin-11-alpine
 
-# We need wget to set up the PPA and xvfb to have a virtual screen and unzip to install the Chromedriver
-RUN apt-get install -y wget xvfb unzip
+FROM maven:3.9.12-eclipse-temurin-17
 
-# Set up the Chrome PPA
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+USER root
 
-# Update the package list and install chrome
-RUN apt-get update -y
-RUN apt-get install -y google-chrome-stable
+# Install OS dependencies
+RUN apt-get update && apt-get install -y \
+    wget \
+    curl \
+    gnupg \
+    unzip \
+    ca-certificates \
+    fonts-liberation \
+    libnss3 \
+    libxss1 \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libgtk-3-0 \
+    libgbm1 \
+    libdrm2 \
+    libxkbcommon0 \
+    libxdamage1 \
+    libxrandr2 \
+    libxshmfence1 \
+    xdg-utils \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set up Chromedriver Environment variables
-ENV CHROMEDRIVER_VERSION 2.19
-ENV CHROMEDRIVER_DIR /chromedriver
-RUN mkdir $CHROMEDRIVER_DIR
+RUN curl -fsSL https://dl.google.com/linux/linux_signing_key.pub \
+    | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
 
-# Download and install Chromedriver
-RUN wget -q --continue -P $CHROMEDRIVER_DIR "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-RUN unzip $CHROMEDRIVER_DIR/chromedriver* -d $CHROMEDRIVER_DIR
+RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] \
+    http://dl.google.com/linux/chrome/deb/ stable main" \
+    > /etc/apt/sources.list.d/google-chrome.list
 
-# Put Chromedriver into the PATH
-ENV PATH $CHROMEDRIVER_DIR:$PATH
+RUN apt-get update && apt-get install -y \
+    google-chrome-stable \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d'.' -f1) && \
+    DRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}) && \
+    wget -q "https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip" && \
+    unzip chromedriver_linux64.zip && \
+    mv chromedriver /usr/local/bin/ && \
+    chmod +x /usr/local/bin/chromedriver && \
+    rm chromedriver_linux64.zip
 
 WORKDIR /src
 
