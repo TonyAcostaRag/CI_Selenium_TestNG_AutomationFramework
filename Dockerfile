@@ -1,8 +1,5 @@
 FROM maven:3.9.12-eclipse-temurin-11-alpine
 
-# See https://codeship.com/documentation/docker/browser-testing/
-FROM myapp:base
-
 # We need wget to set up the PPA and xvfb to have a virtual screen and unzip to install the Chromedriver
 RUN apt-get install -y wget xvfb unzip
 
