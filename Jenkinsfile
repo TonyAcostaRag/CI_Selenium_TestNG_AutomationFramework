@@ -10,9 +10,15 @@ pipeline {
     }
 
     post {
-        always {
-            archiveArtifacts artifacts: 'target/**/*', allowEmptyArchive: true
+    always {
+        script {
+            if (fileExists('target')) {
+                archiveArtifacts artifacts: 'target/**/*', allowEmptyArchive: true
+            } else {
+                echo 'No workspace available, skipping artifact archiving'
+            }
         }
+    }
         failure {
             echo 'Build failed'
         }
@@ -20,4 +26,5 @@ pipeline {
             echo 'Build succeeded'
         }
     }
+
 }

@@ -1,4 +1,4 @@
-FROM 3.9.12-eclipse-temurin-11-alpine
+FROM maven:3.9.12-eclipse-temurin-11-alpine
 
 RUN apt-get update && apt-get install -y \
     wget \
