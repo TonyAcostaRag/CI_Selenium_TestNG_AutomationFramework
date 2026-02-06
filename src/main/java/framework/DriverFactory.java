@@ -40,9 +40,13 @@ public class DriverFactory {
                 case "ChromeHeadless":
                     ChromeOptions chromeOpts = new ChromeOptions();
                     chromeOpts.addArguments("--headless=new");
+                    chromeOpts.addArguments("--no-sandbox");
+                    chromeOpts.addArguments("--disable-dev-shm-usage");
                     chromeOpts.addArguments("--window-size=1920,1080");
+
                     driver.set(new ChromeDriver(chromeOpts));
                     break;
+
 
                 case "FirefoxHeadless":
                     FirefoxOptions ffOpts = new FirefoxOptions();
