@@ -4,14 +4,6 @@
     <artifactId>CI_Selenium_TestNG_AutomationFramework</artifactId>
     <version>1</version>
 
-    <!--
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
-    </properties>
-    -->
-
     <dependencies>
 
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
