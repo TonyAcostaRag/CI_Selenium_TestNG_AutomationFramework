@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+    docker {
+      image 'jenkins/jenkins'
+      reuseNode true
+    }
+  }
 
     environment {
         IMAGE_NAME = "jenkins/jenkins"
