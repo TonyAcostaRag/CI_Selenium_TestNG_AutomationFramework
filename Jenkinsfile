@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "selenium-tests"
-        CONTAINER_NAME = "selenium-tests-run"
+        IMAGE_NAME = "jenkins/jenkins"
+        CONTAINER_NAME = "jenkins"
     }
 
     stages {
