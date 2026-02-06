@@ -14,6 +14,7 @@ public abstract class TestBasePage {
     @Parameters("browser")
     @BeforeMethod(alwaysRun = true)
     public void setup(@Optional("ChromeHeadless") String browser) {
+        driverFactory = new DriverFactory();
         driverFactory.initDriver(browser);
     }
 
