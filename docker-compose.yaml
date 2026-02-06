@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  chrome:
+    image: selenium/standalone-chrome:latest
+    shm_size: 2gb
+    ports:
+      - "4444:4444"
+
+  tests:
+    build: .
+    depends_on:
+      - chrome
+    environment:
+      - BROWSER=ChromeHeadless
+      - REMOTE_URL=http://chrome:4444
+    command: mvn clean test

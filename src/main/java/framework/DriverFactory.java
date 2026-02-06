@@ -17,10 +17,20 @@ public class DriverFactory {
     private static final Logger log = Log.getLogger(DriverFactory.class.getName());
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    public void initDriver(String browser) {
-        log.info("---> Initializing driver for browser: {}", browser);
+    private static final String DEFAULT_REMOTE_URL = "http://chrome:4444";
 
-        System.setProperty("browser", browser);
+    public void initDriver(String testngBrowser) {
+
+        String browser =
+                System.getProperty("browser",
+                        System.getenv().getOrDefault("BROWSER", testngBrowser));
+
+        String remoteUrl =
+                System.getProperty("REMOTE_URL",
+                        System.getenv().getOrDefault("REMOTE_URL", DEFAULT_REMOTE_URL));
+
+        log.info("Resolved browser: {}", browser);
+        log.info("Remote URL: {}", remoteUrl);
 
         try {
 
@@ -37,17 +47,6 @@ public class DriverFactory {
                     driver.set(new EdgeDriver());
                     break;
 
-                case "ChromeHeadless":
-                    ChromeOptions chromeOpts = new ChromeOptions();
-                    chromeOpts.addArguments("--headless=new");
-                    chromeOpts.addArguments("--no-sandbox");
-                    chromeOpts.addArguments("--disable-dev-shm-usage");
-                    chromeOpts.addArguments("--window-size=1920,1080");
-
-                    driver.set(new ChromeDriver(chromeOpts));
-                    break;
-
-
                 case "FirefoxHeadless":
                     FirefoxOptions ffOpts = new FirefoxOptions();
                     ffOpts.addArguments("-headless");
@@ -55,14 +54,15 @@ public class DriverFactory {
                     driver.set(new FirefoxDriver(ffOpts));
                     break;
 
+                case "ChromeHeadless":
                 case "RemoteChrome":
-                    ChromeOptions chromeRmtOpts = new ChromeOptions();
-                    driver.set(
-                        new RemoteWebDriver(
-                            new URL("http://localhost:4444"), 
-                            chromeRmtOpts
-                        )
-                    );
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments("--headless=new");
+                    options.addArguments("--no-sandbox");
+                    options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--window-size=1920,1080");
+
+                    driver.set(new RemoteWebDriver(new URL(remoteUrl), options));
                     break;
 
                 case "RemoteFirefox":

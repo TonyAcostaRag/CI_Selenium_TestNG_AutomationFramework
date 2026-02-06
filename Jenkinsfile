@@ -2,37 +2,16 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Checkout') {
+        stage('Run tests') {
             steps {
-                checkout scm
-            }
-        }
-
-        stage('Build Docker image') {
-            steps {
-                bat '''
-                docker build -t selenium-maven-tests .
-                '''
-            }
-        }
-
-        stage('Run tests in Docker') {
-            steps {
-                bat '''
-                docker run --rm ^
-                  -v "%CD%:/workspace" ^
-                  -w /workspace ^
-                  selenium-maven-tests ^
-                  mvn clean test
-                '''
+                bat 'docker compose up --build --abort-on-container-exit'
             }
         }
     }
 
     post {
         always {
-            junit 'target/surefire-reports/*.xml'
+            bat 'docker compose down'
         }
     }
 }
