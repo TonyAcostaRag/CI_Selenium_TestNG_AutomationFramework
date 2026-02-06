@@ -4,4 +4,4 @@ WORKDIR /workspace
 
 COPY pom.xml .
 
-# COPY src ./src
+COPY src ./src
