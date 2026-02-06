@@ -18,7 +18,7 @@ pipeline {
             steps {
                 echo 'Building Docker image with Maven + Chrome...'
                 sh '''
-                  docker build -t ${IMAGE_NAME} .
+                  docker build -t jenkins/jenkins .
                 '''
             }
         }
@@ -28,10 +28,10 @@ pipeline {
                 echo 'Running tests inside Docker container...'
                 sh '''
                   docker run --rm \
-                    --name ${CONTAINER_NAME} \
+                    --name jenkins \
                     -v $(pwd):/workspace \
                     -w /workspace \
-                    ${IMAGE_NAME} \
+                    jenkins/jenkins \
                     mvn clean test
                 '''
             }
@@ -51,11 +51,11 @@ pipeline {
         }
 
         success {
-            echo '✅ Tests completed successfully'
+            echo 'Tests completed successfully'
         }
 
         failure {
-            echo '❌ Tests failed'
+            echo 'Tests failed'
         }
     }
 }
