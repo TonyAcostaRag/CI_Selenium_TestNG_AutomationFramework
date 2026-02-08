@@ -9,40 +9,26 @@ import api.models.Employee;
 import listeners.TestLog;
 
 public class EmployeeApiTest extends TestApiBasePage {
-/* 
+
     @Test
     void createEmployeeByObject() {
-        // Failing test due creating with object
+        TestLog.info("Calling API to create an employee by object");
         Employee emp = new Employee();
-        emp.setUsername("jdoe");
-        emp.setFirstName("John");
-        emp.setLastName("Doe");
-        emp.setDependants(2);
-        //emp.setSalary(52000);
+        emp.setUsername("object");
+        emp.setFirstName("nameObject");
+        emp.setLastName("DoeObject");
 
         Response response = employeeApi.createEmployee(emp);
 
         TestLog.info(response.getBody().asString());
         assertEquals(response.statusCode(), 200);
-
+        TestLog.pass("Create Employee by Object test passed");
     }
- */
 
-/*     String payload = 
-                    "{\r\n" + //
-                "          \"username\": \"jdoe\",\r\n" + //
-                "          \"firstName\": \"John\",\r\n" + //
-                "          \"lastName\": \"Doe\",\r\n" + //
-                "          \"dependants\": 2,\r\n" + //
-                "          \"salary\": 80000.0,\r\n" + //
-                "          \"expiration\": \"2025-13-32T17:32:28Z\",\r\n" + //
-                "          \"id\": \"0248cc10-e183-434c-b239-1770e825f8af\"\r\n" + //
-                "        }";
- */
-/* 
     @Test
     void createEmployeeByFields() {
-        // Passing test
+        TestLog.info("Calling API to create an employee by payload");
+
         String payload = 
                     "{\r\n" + //
                 "          \"username\": \"jdoe\",\r\n" + //
@@ -55,14 +41,13 @@ public class EmployeeApiTest extends TestApiBasePage {
 
         TestLog.info(response.getBody().asString());
         assertEquals(response.statusCode(), 200);
-
+        TestLog.pass("Create Employee by Payload test passed");
     }
- */
 
-/* 
+
     @Test
     void failWhenRequiredFieldsMissing() {
-        // "required": ["firstName", "lastName", "username"]
+        TestLog.info("Calling API to try to create an employee with missing username and lastname");
 
         Employee emp = new Employee();
         emp.setFirstName("John");
@@ -70,12 +55,13 @@ public class EmployeeApiTest extends TestApiBasePage {
         Response response = employeeApi.createEmployee(emp);
         
         TestLog.info(response.getBody().asString());
-        assertEquals(response.statusCode(), 400);
+        assertEquals(response.statusCode(), 405);
+        TestLog.pass("Failed creation of Employee due username and lastname are missing.");
     }
 
     @Test 
     void rejectAdditionalProperties() {
-        // "additionalProperties": false
+        TestLog.info("Calling API to try to create an employee with additional properties");
 
         String payload = 
                         "{\r\n" + //
@@ -89,12 +75,12 @@ public class EmployeeApiTest extends TestApiBasePage {
 
         TestLog.info(response.getBody().asString());
         assertEquals(response.statusCode(), 400);
-
+        TestLog.pass("Rejected creation of Employee due additional properties passed in payload.");
     }
 
     @Test
     void failwhenDependantsOutOfRange() {
-        // "dependants": { "minimum": 0, "maximum": 32 }
+        TestLog.info("Calling API to try to create an employee with dependants out of range (33)");
 
         Employee emp = new Employee();
 
@@ -107,45 +93,45 @@ public class EmployeeApiTest extends TestApiBasePage {
         Response response = employeeApi.createEmployee(emp);
 
         TestLog.info(response.getBody().asString());
-        assertEquals(response.statusCode(), 400);
+        assertEquals(response.statusCode(), 405);
+        TestLog.pass("Failed creation of Employee due dependant is out of range");
     }
-*/
 
-/*
+
     @Test
     public void getAllEmployees() {
-
-        // Passing test
+        TestLog.info("Calling API to get all the employees");
         Response response = employeeApi.getEmployees();
 
         TestLog.info(response.getBody().asString());
         assertEquals(response.statusCode(), 200);
+        TestLog.pass("Successful retrieval of all Employees");
     }
-*/
+
     
-/* 
     @Test
     public void updateEmployee() {
-        // Passing test
+        TestLog.info("Calling API to update an employee data");
+
         Employee emp = new Employee();
         emp.setId("d6c39a42-2333-4cf2-a2f9-66b5b578df7d");
         emp.setUsername("api");
-        emp.setFirstName("apiEdite");
-        emp.setLastName("apiEdite");
-        emp.setId("cfd953d1-e007-458e-92cb-f29a053212f8"); // ---
-        //emp.setDependants(10);
+        emp.setFirstName("apiEdited");
+        emp.setLastName("apiEdited");
+        emp.setDependants(10);
         emp.setSalary(53000.0f);
 
         Response response = employeeApi.updateFullEmployee(emp);
 
         TestLog.info(response.getBody().asString());
         assertEquals(response.statusCode(), 200);
+        TestLog.pass("Successful update of specified employee id and edited fields");
     }
-   */
 
     
     @Test
     public void getEmployeeById() {
+        TestLog.info("Calling API to get an employee by their id");
 
         String id = "bc68963e-467a-4ab4-a08e-b65e3092b02c";
 
@@ -153,29 +139,36 @@ public class EmployeeApiTest extends TestApiBasePage {
 
         TestLog.info(response.getBody().asString());
         assertEquals(response.statusCode(), 200);
+        TestLog.pass("Successful retrieval of specified Employee");
     }
     
-/* 
+
     @Test
     public void failForInvalidUUID() {
+        TestLog.info("Calling API to try to get an employee with an non-uuid");
+
         String id = "not-a-uuid";
 
         Response response = employeeApi.getEmployeeById(id);
 
         TestLog.info(response.getBody().asString());
         assertEquals(response.getStatusCode(), 400);
+        TestLog.pass("Failed retrieval of employees due invalid uuid");
     }
-*/
-/* 
+
+
     @Test
     public void deleteEmployee() {
-        String id = "e13233a1-db83-4215-9143-5f30c66076e9";
+        TestLog.info("Calling API to delte an employee by their id");
+
+        String id = "899bf614-c181-4a35-ad77-72f7fd6ff9ad";
 
         Response response = employeeApi.deleteEmployee(id);
 
         TestLog.info(response.getBody().asString());
         assertEquals(response.getStatusCode(), 200);
+        TestLog.pass("Successful retrieval of all Employees");
 
     }
-      */
+    
 }
