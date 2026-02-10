@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Automation Suite">
+
+    <listeners>
+        <listener class-name="listeners.ExtentTestNGListener"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+
+    <test name="Firefox Headless Tests">
+
+        <parameter name="browser" value="FirefoxHeadless"/>
+
+        <classes>
+            <class name="tests.paylocity.LoginTests_paylocity"/>
+            <class name="tests.paylocity.BenefitCosts_previewTests"/>
+        </classes>
+    </test>
+
+</suite>

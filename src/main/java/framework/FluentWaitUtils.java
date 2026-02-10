@@ -1,6 +1,7 @@
 package framework;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
@@ -80,6 +81,42 @@ public class FluentWaitUtils {
                     : null;
         });
     }
+
+    public void waitForTableToHaveRows(By rowLocator) {
+        getFluentWait().until(driver ->
+            driver.findElements(rowLocator).size() > 0
+        );
+    }
+
+    public WebElement waitForRowContainingText(By rowsLocator, String text) {
+        return getFluentWait().until(driver -> {
+            for (WebElement row : driver.findElements(rowsLocator)) {
+                if (row.getText().contains(text)) {
+                    return row;
+                }
+            }
+            return null;
+        });
+    }
+
+    public boolean waitForRowToBeInvisible(By rowsLocator, String text) {
+    return getFluentWait().until(driver -> {
+        try {
+            List<WebElement> rows = driver.findElements(rowsLocator);
+
+            for (WebElement row : rows) {
+                if (row.getText().contains(text)) {
+                    return !row.isDisplayed(); // row exists but hidden
+                }
+            }
+
+            return true; // row not found = invisible
+        } catch (StaleElementReferenceException e) {
+            return true; // DOM refreshed, row gone
+        }
+    });
+}
+
 
     /* =========================
        Page-level waits

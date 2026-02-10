@@ -93,7 +93,7 @@
                     <failIfNoTests>false</failIfNoTests>
 
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng_api_tests.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/${testngFile}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

@@ -1,6 +1,7 @@
 package framework;
 
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -43,6 +44,10 @@ public class BrowserActions {
     public void click(WebElement element) {
         fluentWait.waitForClickable(element);
         element.click();
+    }
+
+    public void click(By locator) {
+        fluentWait.waitForClickable(locator).click();
     }
 
     // ------- Inputs -------
