@@ -13,7 +13,7 @@
 .vscode
 allure-report/
 allure-results/
-src/drivers/
+
 *.properties
 
 # Java Files
