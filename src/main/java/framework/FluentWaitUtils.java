@@ -100,22 +100,22 @@ public class FluentWaitUtils {
     }
 
     public boolean waitForRowToBeInvisible(By rowsLocator, String text) {
-    return getFluentWait().until(driver -> {
-        try {
-            List<WebElement> rows = driver.findElements(rowsLocator);
+        return getFluentWait().until(driver -> {
+            try {
+                List<WebElement> rows = driver.findElements(rowsLocator);
 
-            for (WebElement row : rows) {
-                if (row.getText().contains(text)) {
-                    return !row.isDisplayed(); // row exists but hidden
+                for (WebElement row : rows) {
+                    if (row.getText().contains(text)) {
+                        return !row.isDisplayed(); // row exists but hidden
+                    }
                 }
-            }
 
-            return true; // row not found = invisible
-        } catch (StaleElementReferenceException e) {
-            return true; // DOM refreshed, row gone
-        }
-    });
-}
+                return true; // row not found = invisible
+            } catch (StaleElementReferenceException e) {
+                return true; // DOM refreshed, row gone
+            }
+        });
+    }
 
 
     /* =========================
