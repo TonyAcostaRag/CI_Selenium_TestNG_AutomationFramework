@@ -106,13 +106,13 @@ public class FluentWaitUtils {
 
                 for (WebElement row : rows) {
                     if (row.getText().contains(text)) {
-                        return !row.isDisplayed(); // row exists but hidden
+                        return !row.isDisplayed();
                     }
                 }
 
-                return true; // row not found = invisible
+                return true;
             } catch (StaleElementReferenceException e) {
-                return true; // DOM refreshed, row gone
+                return true;
             }
         });
     }
